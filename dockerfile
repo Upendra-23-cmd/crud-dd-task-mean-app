@@ -13,7 +13,7 @@ RUN npm run build -- --configuration production
 
 FROM nginx:alpine
 
-COPY nginx/default.conf  /etc/nginx/conf.d/default.conf
+COPY /nginx/default.conf  /etc/nginx/conf.d/default.conf
 
 COPY --from=build  /app/dist/angular-15-crud/ /usr/share/nginx/html/
 

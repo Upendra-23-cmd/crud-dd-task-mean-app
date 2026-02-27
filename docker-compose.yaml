@@ -1,12 +1,14 @@
-version: "3.9"
+version: '3.8'
 
 services:
   mongo:
-    image: mongo:6
+    image: mongo:latest
     container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
     volumes:
       - mongo-data:/data/db
-    restart: always
 
   backend:
     build: ./backend
@@ -14,18 +16,22 @@ services:
     depends_on:
       - mongo
     restart: always
+    ports:
+      - "8080:8080"
 
   frontend:
     build: ./frontend
     container_name: frontend
     restart: always
+    ports:
+      - "4200:80"
 
   nginx:
     build: .
     container_name: nginx
+    restart: always
     ports:
       - "80:80"
-    restart: always
 
 volumes:
   mongo-data:
